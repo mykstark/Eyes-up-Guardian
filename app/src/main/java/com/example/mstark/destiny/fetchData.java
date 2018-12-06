@@ -1,15 +1,11 @@
 package com.example.mstark.destiny;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,18 +15,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class fetchData extends AsyncTask <Void, Void, Void> {
-//    String apiInfo;
- JSONObject jobject;
-//    JSONObject data;
     String jsonInString;
     String chicken;
+//    String key;
+//
+//    public String getStrings(Context context){
+//
+//       String key = context.getString(R.string.key);
+//       Log.i("Mykal", key);
+//       this.key = key;
+//
+//       return key;
+//    }
 
 
     @Override
     public Void doInBackground(Void... voids) {
-
         try {
-            String apiKey = "22391476009e4dcda71b0b579fb20126";
+            String apiKey = MainActivity.key;
             URL url = new URL("https://www.bungie.net/platform/Destiny/Manifest/InventoryItem/1274330687/");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
@@ -50,7 +52,7 @@ public class fetchData extends AsyncTask <Void, Void, Void> {
 
 
             //Turn jsonInString into jObject
-             jobject = new JSONObject(sb.toString());
+             JSONObject jobject = new JSONObject(sb.toString());
 
              Log.i("Mykal", jobject.toString());
 
@@ -63,15 +65,6 @@ public class fetchData extends AsyncTask <Void, Void, Void> {
             String tier = "Rarity: " + inventoryItem.getString("tierTypeName");
 
             chicken = itemName + System.lineSeparator() + itemDescription + System.lineSeparator() + tier;
-
-
-
-
-
-
-
-
-
 
 
 
